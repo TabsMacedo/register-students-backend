@@ -1,0 +1,15 @@
+# Ignorar a pasta de dependências
+node_modules/
+
+# Ignorar arquivos de build (quando compilar TypeScript)
+dist/
+
+# Ignorar arquivos de variáveis de ambiente
+.env.local
+.env.production
+
+# Ignorar logs
+*.log
+
+# Ignorar arquivos temporários de sistema
+.DS_Store
