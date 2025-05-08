@@ -15,6 +15,7 @@ const User = new Schema({
     type: String
   },
   permission: {
+    type: String
   }
 }, {
   timestamps: true
