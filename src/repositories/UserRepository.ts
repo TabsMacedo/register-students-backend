@@ -46,12 +46,12 @@ class UserRepository {
     return newPassword;
   }
 
-  public async getAllUsersRepository() {
+  public async getUserByIdRepository(idUser: string) {
     try {
-      const users = await UserSchema.find();
-      return users;
+      const user = await UserSchema.findById(idUser);
+      return user;
     } catch (err) {
-      throw new Error(`Erro ao buscar usuários: ${err}`);
+      throw new Error(`Erro ao buscar usuário por ID: ${err}`);
     }
   }
 
@@ -74,5 +74,22 @@ class UserRepository {
       throw new Error(`Erro ao atualizar usuário: ${err}`);
     }
   }
+  
+  public async deleteUserRepository(id: string) {
+    try {
+      const deletedUser = await UserSchema.findByIdAndDelete(id);
+      if (!deletedUser) {
+        throw new Error('Usuário não encontrado');
+      }
+      return {
+        status: 1,
+        msg: 'Usuário deletado com sucesso',
+        data: deletedUser
+      };
+    } catch (err) {
+      throw new Error(`Erro ao deletar usuário: ${err}`);
+    }
+  }
+
 }
 export default UserRepository;

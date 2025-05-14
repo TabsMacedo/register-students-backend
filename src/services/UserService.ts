@@ -17,20 +17,14 @@ class UserService {
 
       return operationPromisse
     }
-
     catch (err) {
       return (`Erro UserService: ${err}`)
     }
   }
 
-  public async getAllUsersService() {
-    try {
-      const userRepository = new UserRepository();
-      const users = await userRepository.getAllUsersRepository();
-      return users;
-    } catch (err) {
-      return (`Erro UserService (getAll): ${err}`);
-    }
+  public async getUserByIdService(idUser: string) {
+    const userRepository = new UserRepository();
+    return await userRepository.getUserByIdRepository(idUser);
   }
 
   public async updateUserService(id: string, data: Partial<IUser>) {
@@ -43,6 +37,12 @@ class UserService {
       return (`Erro UserService (update): ${err}`);
     }
   }
+  
+  public async deleteUserService(id: string) {
+    const userRepository = new UserRepository();
+    return await userRepository.deleteUserRepository(id);
+  }
+
 }
 
 export default UserService;

@@ -15,8 +15,9 @@ class UserRoutes {
 
   private initRoutes() {
     this.express.post(`/user/insert`, this.userController.insertUserController);
-    this.express.get(`/user`, this.userController.getAllUsersController);
+    this.express.get(`/user/:idUser`, this.userController.getUserByIdController);
     this.express.put(`/user/update/:idUser`, this.userController.updateUserController);
+    this.express.delete(`/user/delete/:idUser`, this.userController.deleteUserController);
   }
 }
 

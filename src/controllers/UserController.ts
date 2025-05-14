@@ -2,8 +2,11 @@ import { Request, Response } from 'express';
 import UserService from '../services/UserService';
 import { IUser } from '../models/interface/IUser';
 import UserSchema from '../schemas/UserSchema';
+import { z } from 'zod';
 
 class UserController {
+
+
   public async insertUserController(req: Request, res: Response): Promise<void> {
     try {
       const data = req.body;
@@ -21,22 +24,41 @@ class UserController {
   }
 
   // método Read
-  public async getAllUsersController(req: Request, res: Response): Promise<void> {
+  public async getUserByIdController(req: Request, res: Response): Promise<void> {
     try {
+      const { idUser } = req.params;
       const userService = new UserService();
-      const users = await userService.getAllUsersService();
-      res.status(200).json(users);
+      const user = await userService.getUserByIdService(idUser);
+      res.status(200).json(user);
     } catch (err) {
       res.status(500).json({ error: err });
     }
   }
 
-
   public async updateUserController(req: Request, res: Response): Promise<void> {
+    const createUserSchema = z.object({
+      _id: z.string(),
+      name: z.string(),
+      email: z.string().email(),
+      password: z.string(),
+      phone: z.string(),
+      permission: z.string()
+
+    });
+
+    const userSchemaValidator = createUserSchema.safeParse(req.body);
+    if (!userSchemaValidator.success) return
+    const data = userSchemaValidator.data
+
     try {
       const { idUser } = req.params;
-      const data: IUser = req.body;
-      // fazer validação dos dados, usar o Zod, não acessar o schema aqui
+
+      const idUserSchema = z.string().length(24, "idUser inválido");
+      const idUserValidation = idUserSchema.safeParse(idUser);
+      if (!idUserValidation.success) {
+        res.status(400).json({ error: idUserValidation.error.format() });
+        return;
+      }
 
       const existingUser = await UserSchema.findOne({ _id: idUser });
       if (!existingUser) {
@@ -50,7 +72,7 @@ class UserController {
         permission: data.permission !== existingUser.permission ? data.permission : undefined,
       };
 
-    
+
 
       if (Object.keys(updateFields).length === 0) {
         res.status(200).json({
@@ -75,6 +97,19 @@ class UserController {
       });
     } catch (err) {
       res.status(500).json({ error: `Erro UserController: ${err}` });
+    }
+  }
+  
+  public async deleteUserController(req: Request, res: Response): Promise<void> {
+    try {
+      const { idUser } = req.params;
+
+      const userService = new UserService();
+      const result = await userService.deleteUserService(idUser);
+
+      res.status(200).json(result);
+    } catch (err) {
+      res.status(500).json({ error: `Erro ao deletar usuário: ${err}` });
     }
   }
 
