@@ -1,15 +1,49 @@
-# Ignorar a pasta de dependências
+# Dependências do Node
 node_modules/
 
-# Ignorar arquivos de build (quando compilar TypeScript)
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos temporários de sistema
+.DS_Store
+Thumbs.db
+
+# Diretórios de build
 dist/
 
-# Ignorar arquivos de variáveis de ambiente
-.env.local
+# Variáveis de ambiente
+.gitignore
+.env
+.env.development
 .env.production
+.env.local
 
-# Ignorar logs
-*.log
+# Cache do Editor
+.vscode/
+.idea/
+*.swp
 
-# Ignorar arquivos temporários de sistema
-.DS_Store
+# Arquivos específicos do SO
+*.out
+*.pid
+*.pid.lock
+
+# Configurações de teste
+coverage/
+.nyc_output/
+
+# Cache do TypeScript
+*.tsbuildinfo
+
+# Configurações do Parcel bundler
+.cache/
+.parcel-cache/
+
+# Arquivos de deploy
+.deploy/
+
+# Configurações e aquivos não enviados
