@@ -35,7 +35,7 @@ Funcionalidades principais:
 
 ## Screenshot
 
-![Screenshot do sistema](./screenshot.jpg)
+![Screenshot do sistema]()
 
 ---
 
