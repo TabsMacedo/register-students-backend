@@ -15,7 +15,9 @@ const User = new Schema({
     type: String
   },
   permission: {
-    type: String
+    type: String,
+    enum: ['admin', 'aluno'],
+    default: 'aluno'
   }
 }, {
   timestamps: true

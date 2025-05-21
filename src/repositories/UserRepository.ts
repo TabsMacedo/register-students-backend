@@ -3,6 +3,9 @@ import UserSchema from "../schemas/UserSchema";
 import bcrypt from 'bcryptjs'
 
 class UserRepository {
+  static findOneBy(arg0: { email: any; }) {
+    throw new Error('Method not implemented.');
+  }
   public async insertUserRepository(data: IUser) {
     try {
       let operationPromisse: any;
