@@ -1,6 +1,7 @@
 // juntar as rotas
 import express from 'express';
 import UserRoutes from './UserRoutes'
+import LoginRoutes from './LoginRoutes';
 
 class InitRoutes {
   public express: express.Router
@@ -12,7 +13,7 @@ class InitRoutes {
 
   private routes() {
     this.express.use(UserRoutes)
-
+    this.express.use(LoginRoutes)
   }
 }
 

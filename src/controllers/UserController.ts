@@ -10,7 +10,6 @@ class UserController {
   public async insertUserController(req: Request, res: Response): Promise<void> {
     try {
       const data = req.body;
-      const { idUser } = req.params;
 
       const userService = new UserService();
 
